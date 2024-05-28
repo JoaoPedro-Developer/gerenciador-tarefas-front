@@ -1,57 +1,33 @@
-import React from "react";
+import { useState, useEffect } from 'react'
+import axios from 'axios'
+
 import TaskItem from './components/taskItem'
 
-class App extends React.Component {
-  constructor (props) {
-    super(props)
-    this.handleStateChange = this.handleStateChange.bind(this)
-    this.state = {
-      tasks: [ 
-      { id: '1', description: 'Estudar', isCompleted: false },
-      { id: '2', description: 'Ler', isCompleted: true }
-    ]
+
+
+const App = () => {
+  const [tasks, setTasks] = useState([
+    { id: '1', description: 'Estudar', isCompleted: false },
+    { id: '2', description: 'Ler', isCompleted: true }
+  ])
+
+  const fetchTasks = async () => {
+    try {
+      const { data } = await axios.get('http://localhost:8000/tasks')
+      setTasks(data)
+    } catch (error) {
+      console.log(error.message)
     }
   }
 
-  componentDidMount() {
-    console.log('component was mounted!')
-  }
+  useEffect(() => {
+    fetchTasks()
+  }, [])
 
-  componentDidUpdate(prevProps, prevState) {
-    console.log(prevState)
-    console.log('component was updated!')
-  }
 
-  componentWillUnmount() {
-    console.log('i will unmount!')
-  }
-
-  handleStateChange () {
-    this.setState({
-      tasks: []
-    })
-  }
-
-  render() {
-      return <>
-    {this.state.tasks.map(task => <TaskItem key={task.id} task={task}/>)}
-    <button onClick={this.handleStateChange}>Limpar Tarefas</button>
+  return <>
+    {tasks.map(task => <TaskItem key={task.id} task={task}/>)}
   </>
-  }
 }
-
-// import TaskItem from './components/taskItem'
-// import { useState } from 'react'
-
-
-// const App = () => {
-//   const [tasks, setTasks] = useState([
-//     { id: '1', description: 'Estudar', isCompleted: false },
-//     { id: '2', description: 'Ler', isCompleted: true }
-//   ])
-//   return <>
-//     {tasks.map(task => <TaskItem key={task.id} task={task}/>)}
-//   </>
-// }
 
 export default App;
