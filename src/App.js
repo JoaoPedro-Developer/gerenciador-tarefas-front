@@ -13,6 +13,19 @@ class App extends React.Component {
     }
   }
 
+  componentDidMount() {
+    console.log('component was mounted!')
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    console.log(prevState)
+    console.log('component was updated!')
+  }
+
+  componentWillUnmount() {
+    console.log('i will unmount!')
+  }
+
   handleStateChange () {
     this.setState({
       tasks: []
