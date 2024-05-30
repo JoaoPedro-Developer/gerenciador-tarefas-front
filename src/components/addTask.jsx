@@ -20,9 +20,12 @@ const AddTask = () => {
             if (task.length === 0) {
                 return alert.error('A tarefa precisa de uma descrição para ser adicionada')
             }
-            await axios.post()
+            await axios.post('http://localhost:8000/tasks', {
+                description: task,
+                isCompleted: false
+            })
         } catch (error) {
-
+            console.log(error.message)
         }
     }
 
