@@ -1,4 +1,4 @@
-import './customInput.scss'
+import './CustomInput.scss'
 
 const customInput = ({label, value, onChange, onEnterPress}) => {
     const handleKeyDown = (e) => {

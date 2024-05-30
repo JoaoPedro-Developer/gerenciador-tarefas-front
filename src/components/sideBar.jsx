@@ -1,6 +1,6 @@
-import CustomButtom from './customButton'
+import CustomButtom from './CustomButton'
 
-import './sideBar.scss'
+import './SideBar.scss'
 import logo from '../assets/images/logo.png'
 
 const SideBar = () => {

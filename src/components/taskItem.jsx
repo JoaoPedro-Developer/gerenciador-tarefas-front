@@ -1,7 +1,7 @@
 import  { AiFillDelete } from 'react-icons/ai'
 import axios from 'axios'
 import { useAlert } from 'react-alert'
-import './taskItem.scss'
+import './TaskItem.scss'
 
 const TaskItem = ({ task, fetchTasks }) => {
 

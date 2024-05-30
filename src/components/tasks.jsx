@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react"
 import axios from "axios"
 
-import './tasks.scss'
+import './Tasks.scss'
 
-import TaskItem from "./taskItem"
-import AddTask from "./addTask"
+import TaskItem from "./TaskItem"
+import AddTask from "./AddTask"
 
 const Tasks = () => {
     const [tasks, setTasks] = useState([])

@@ -1,4 +1,4 @@
-import './customButton.scss'
+import './CustomButton.scss'
 
 const CustomButtom = ({onClick, children}) => {
     return (<div className="custom-button-container" onClick={onClick}>

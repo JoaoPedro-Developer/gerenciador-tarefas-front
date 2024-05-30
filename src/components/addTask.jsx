@@ -3,9 +3,10 @@ import { FaPlus } from 'react-icons/fa'
 import { useAlert } from 'react-alert'
 import axios from 'axios'
 
-import CustomInput from './customInput.jsx'
-import CustomButton from './customButton.jsx'
+import CustomInput from './CustomInput.jsx'
+import CustomButtom from './CustomButton.jsx'
 
+import './AddTask.scss'
 const AddTask = ({fetchTasks}) => {
     const [task, setTask] = useState('')
 
@@ -40,9 +41,9 @@ const AddTask = ({fetchTasks}) => {
                 onChange={onChange}
                 onEnterPress={handleTaskAddition}
             />
-            <CustomButton onClick={handleTaskAddition} e>
+            <CustomButtom onClick={handleTaskAddition} e>
                 <FaPlus size={14} color='#fffffff'/>
-            </CustomButton>
+            </CustomButtom>
         </div>
     )
 }
