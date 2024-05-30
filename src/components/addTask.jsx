@@ -6,7 +6,7 @@ import axios from 'axios'
 import CustomInput from './customInput.jsx'
 import CustomButton from './customButton.jsx'
 
-const AddTask = () => {
+const AddTask = ({fetchTasks}) => {
     const [task, setTask] = useState('')
 
     const alert = useAlert()
@@ -24,8 +24,10 @@ const AddTask = () => {
                 description: task,
                 isCompleted: false
             })
+            await fetchTasks()
+            setTask('')
         } catch (error) {
-            console.log(error.message)
+            alert.error('Algo deu errado')
         }
     }
 
