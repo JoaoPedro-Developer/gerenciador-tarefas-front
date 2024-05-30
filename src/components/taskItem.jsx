@@ -4,7 +4,9 @@ import { useAlert } from 'react-alert'
 import './taskItem.scss'
 
 const TaskItem = ({ task, fetchTasks }) => {
+
     const alert = useAlert()
+
     const handleTaskDeletion = async () => {
         try {
             await axios.delete(`http://localhost:8000/tasks/${task._id}`)
@@ -15,13 +17,25 @@ const TaskItem = ({ task, fetchTasks }) => {
         }
     }
 
+    const handleUpdateTask = async (e) => {
+        try {
+            await axios.patch(`http://localhost:8000/tasks/${task._id}`, {
+                isCompleted: e.target.checked
+            })
+            await fetchTasks()
+            alert.success('A tarefa foi modificada com sucesso')
+        } catch (error) {
+            alert.error('Algo deu errado')
+        }
+    }
+
     return <>
         <div className="task-item-container">
             <div className="task-description">
                 <label className={
                     task.isCompleted ? 'checkbox-container-completed': 'checkbox-container'}>
                     {task.description}
-                    <input type="checkbox" defaultChecked={task.isCompleted}/>
+                    <input onChange={(e) => {handleUpdateTask(e)}} type="checkbox" defaultChecked={task.isCompleted}/>
                     <span className={task.isCompleted ? 'checkmark completed' : 'checkmark'}></span>
                 </label>
             </div>
