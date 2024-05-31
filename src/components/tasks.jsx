@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useMemo } from "react"
 import { useAlert } from "react-alert"
 import axios from "axios"
 
@@ -18,7 +18,15 @@ const Tasks = () => {
         alert.error('Ocorreu um erro ao pegar as tarefas do banco')
       }
     }
-  
+    
+    const lastTasks = useMemo(() => {
+      return tasks.filter(task => task.isCompleted === false)
+    }, [tasks])
+
+    const completedTasks = useMemo(() => {
+      return tasks.filter(task => task.isCompleted)
+    }, [tasks])
+
     useEffect(() => {
       fetchTasks()
     }, [])
@@ -30,14 +38,18 @@ const Tasks = () => {
                 <h3>Últimas Tarefas</h3>
                 <AddTask fetchTasks={fetchTasks}/>
                 <div className="tasks-list">
-                  {tasks.filter(task => !task.isCompleted).map(lastTask => <TaskItem key={lastTask._id} task={lastTask} fetchTasks={fetchTasks}/>)}
+                  { lastTasks
+                    .map(lastTask => <TaskItem key={lastTask._id} task={lastTask} fetchTasks={fetchTasks}/>)
+                  }
                 </div>
             </div>
 
             <div className="completed-tasks">
               <h3>Tarefas Concluídas</h3>
               <div className="tasks-list">
-                {tasks.filter(task =>  task.isCompleted).map(completedTask => <TaskItem key={completedTask._id} task={completedTask} fetchTasks={fetchTasks}/>)}
+                { completedTasks
+                  .map(completedTask => <TaskItem key={completedTask._id} task={completedTask} fetchTasks={fetchTasks}/>)
+                }
               </div>
             </div>
         </div>
