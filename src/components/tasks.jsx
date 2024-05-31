@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react"
+import { useAlert } from "react-alert"
 import axios from "axios"
 
 import './Tasks.scss'
@@ -8,19 +9,19 @@ import AddTask from "./AddTask"
 
 const Tasks = () => {
     const [tasks, setTasks] = useState([])
-    
-      const fetchTasks = async () => {
-        try {
-          const { data } = await axios.get('http://localhost:8000/tasks')
-          setTasks(data)
-        } catch (error) {
-          console.log(error.message)
-        }
+    const alert = useAlert()
+    const fetchTasks = async () => {
+      try {
+        const { data } = await axios.get('http://localhost:8000/tasks')
+        setTasks(data)
+      } catch (_e) {
+        alert.error('Ocorreu um erro ao pegar as tarefas do banco')
       }
-    
-      useEffect(() => {
-        fetchTasks()
-      }, [])
+    }
+  
+    useEffect(() => {
+      fetchTasks()
+    }, [])
     return (
         <div className="tasks-container">
             <h2>Minhas Tarefas</h2>
