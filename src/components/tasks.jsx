@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react"
+import { useState, useEffect, useMemo, useCallback } from "react"
 import { useAlert } from "react-alert"
 import axios from "axios"
 
@@ -9,15 +9,17 @@ import AddTask from "./AddTask"
 
 const Tasks = () => {
     const [tasks, setTasks] = useState([])
+
     const alert = useAlert()
-    const fetchTasks = async () => {
+    
+    const fetchTasks = useCallback(async () => {
       try {
         const { data } = await axios.get('http://localhost:8000/tasks')
         setTasks(data)
       } catch (_e) {
         alert.error('Ocorreu um erro ao pegar as tarefas do banco')
       }
-    }
+    },[alert])
     
     const lastTasks = useMemo(() => {
       return tasks.filter(task => task.isCompleted === false)
@@ -29,7 +31,7 @@ const Tasks = () => {
 
     useEffect(() => {
       fetchTasks()
-    }, [])
+    }, [fetchTasks])
     return (
         <div className="tasks-container">
             <h2>Minhas Tarefas</h2>
